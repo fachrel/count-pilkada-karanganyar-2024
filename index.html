@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real Count KPU Bupati & Wakil Bupati Karanganayar 2024</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+  <div class="max-w-4xl w-full bg-white shadow-lg rounded-lg grid grid-cols-1 md:grid-cols-2">
+    <div class="col-span-1 md:col-span-2">
+        <h1 class="text-center text-5xl font-bold p-4 mb-4">Real Count KPU Bupati & Wakil Bupati Karanganayar 2024</h1>
+        <h1 class="text-center text-3xl font-bold p-4 mb-4 bg-yellow-200">Progress : <span id="progress"></span>%</h1>
+    </div>
+    <!-- Left Side -->
+    <div class="flex flex-col items-center justify-center p-6">
+        <div>
+            <h2 class="text-center text-xl">NOMOR URUT</h2>
+            <p class="text-center text-4xl font-bold">1</p>
+        </div>
+        <div class="flex">
+            <div class="flex flex-col items-center">
+                <img src="images/Ilyas-Akbar-Almadani.jpeg" alt="Calon bupati 1" class="w-40 h-60 object-cover">
+                <h2 class="mt-4 text-xl font-bold text-gray-700 text-center">Ilyas Akbar Almadani, S.I.P.</h2>
+            </div>
+            
+            <div class="flex flex-col items-center">
+                <img src="images/Tri-Haryadi.jpeg" alt="Calon wakil bupati 1" class="w-40 h-60 object-cover">
+                <h2 class="mt-4 text-xl font-bold text-gray-700 text-center">Ir. H. Tri Haryadi</h2>
+            </div>
+        </div>
+      <div class="mt-5 text-5xl font-bold" id="votes-candidate-1">-</div>
+    </div>
+    <!-- Right Side -->
+    <div class="flex flex-col items-center justify-center p-6 border-t md:border-t-0 md:border-l">
+        <div>
+            <h2 class="text-center text-xl">NOMOR URUT</h2>
+            <p class="text-center text-4xl font-bold">2</p>
+        </div>
+        <div class="flex">
+            <div class="flex flex-col items-center">
+                <img src="images/Rober-Christanto.jpeg" alt="Calon bupati 1" class="w-40 h-60 object-cover">
+                <h2 class="mt-4 text-xl font-bold text-gray-700 text-center">H. Rober Christanto, S.E., M.M.</h2>
+            </div>
+            <div class="flex flex-col items-center">
+                <img src="images/ADHE-ELIANA.jpeg" alt="Calon wakil bupati 1" class="w-40 h-60 object-cover">
+                <h2 class="mt-4 text-xl font-bold text-gray-700 text-center">H. ADHE ELIANA, S.E.</h2>
+            </div>
+        </div>
+      <div class="mt-5 text-5xl font-bold" id="votes-candidate-2">-</div>
+    </div>
+    <div class="col-span-1 md:col-span-2">
+        <p class="text-center mt-2 bg-gray-500 text-gray-900 font-medium px-2.5 py-0.5 rounded">Versi : <span id="versi"></span></p>
+        <p class="text-center p-4">*Data diambil dari API <a href="https://pilkada2024.kpu.go.id/pilwalkot/jawa-tengah/karanganyar">Website KPU</a></p>
+    </div>
+  </div>
+  
+
+  <script>
+    async function fetchData() {
+      try {
+        const response = await fetch('https://sirekappilkada-obj-data.kpu.go.id/pilkada/hhcw/pkwkk/33/3313.json');
+        const data = await response.json();
+        
+        // Extracting the vote counts for the candidates
+        const votesCandidate1 = data.tungsura.chart["1000657"].toLocaleString();
+        const votesCandidate2 = data.tungsura.chart["1000658"].toLocaleString();
+        const versi = data.ts;
+        const progress = data.tungsura.chart.progres.persen;
+        
+        document.getElementById('votes-candidate-1').innerText = votesCandidate1;
+        document.getElementById('votes-candidate-2').innerText = votesCandidate2;
+
+        document.getElementById('versi').innerText = versi;
+        document.getElementById('progress').innerText = progress;
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+
+    fetchData();
+  </script>
+</body>
+</html>
